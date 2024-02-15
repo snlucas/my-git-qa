@@ -1,4 +1,4 @@
-# my-git-qa
+# My Git QA
 
 ## Look For Modified Files
 ```sh
