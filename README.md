@@ -12,6 +12,8 @@ $ git whatchanged --since="since time" --name-only --oneline | grep -v '^.\{9\}\
 $ git whatchanged  bb --since="2 weeks ago" --name-only --oneline | grep -v '^.\{9\}\s' | uniq
 ```
 
+*grep -v* is used to remove lines with sha (9 chars).
+
 <br><br>
 ### If I want to see branch bb modified files in a range:
 ```sh
