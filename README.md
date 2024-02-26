@@ -17,7 +17,7 @@ $ git whatchanged  bb --since="2 weeks ago" --name-only --oneline | grep -v '^.\
 <br><br>
 ### If I want to see branch bb modified files in a range:
 ```sh
-$ git whatchanged  bb commitsha1..commitsha2 --name-only --oneline | grep -v '^.\{9\}\s' | uniq
+$ git whatchanged  bb commitsha1..commitsha2 --name-only --oneline | grep -v '^.\{9\}\s' | sort -u
 ```
 
 <br><br>
@@ -37,7 +37,7 @@ $ grep -v -e filea -e fileb -e filec
 <br><br>
 ## Get modified files from a branch called bb
 ```sh
-$ git checkout bb -- $(git whatchanged bb commitsha1..commitsha2 --no-merges --author="snlucas" --committer="snlucas" --name-only --oneline | grep -v '^.\{9\}\s' | uniq | awk '{ printf "%s ", $0; } END { printf "\n"; }' | tr '\n' ' ')
+$ git checkout bb -- $(git whatchanged bb commitsha1..commitsha2 --no-merges --author="snlucas" --committer="snlucas" --name-only --oneline | grep -v '^.\{9\}\s' | sort -u | awk '{ printf "%s ", $0; } END { printf "\n"; }' | tr '\n' ' ')
 ```
 
 In this case I get all modified files using git whatchanged and used git checkout in bb branch to get these files. Also, it's important to use **--**, once it tells git that you're dealing with files in this part of the command, helping you avoid some headaches.
@@ -46,7 +46,7 @@ In this case I get all modified files using git whatchanged and used git checkou
 ### Ok, I got some errors with my *$ git checkout -- files*
 Sometimes you face some errors with some files. If it's ok, you can avoid these files:
 ```sh
-$ git checkout bb -- $(git whatchanged bb commitsha1..commitsha2 --no-merges --author="snlucas" --committer="snlucas" --name-only --oneline | grep -v '^.\{9\}\s' | uniq | grep -v -e errorfile1 -e errorfile2 -e errorfile3 | awk '{ printf "%s ", $0; } END { printf "\n"; }' | tr '\n' ' ')
+$ git checkout bb -- $(git whatchanged bb commitsha1..commitsha2 --no-merges --author="snlucas" --committer="snlucas" --name-only --oneline | grep -v '^.\{9\}\s' | sort -u | grep -v -e errorfile1 -e errorfile2 -e errorfile3 | awk '{ printf "%s ", $0; } END { printf "\n"; }' | tr '\n' ' ')
 ```
 
 <br><br>
